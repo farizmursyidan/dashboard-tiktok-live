@@ -146,8 +146,8 @@ class User extends Component {
                 <h5 className="mt-2">Status</h5>
                 <fieldset className="form-group">
                   <select className="form-control" name="status" value={this.state.selected_user.status} onChange={this.handleChangeInput}>
-                    <option value={true}>ON</option>
-                    <option value={false}>OFF</option>
+                    <option value={1}>ON</option>
+                    <option value={0}>OFF</option>
                   </select>
                 </fieldset>
                 <h5 className="mt-2">Email</h5>
@@ -169,8 +169,8 @@ class User extends Component {
                 <h5 className="mt-2">Live</h5>
                 <fieldset className="form-group">
                   <select className="form-control" name="live" value={this.state.selected_user.live} onChange={this.handleChangeInput}>
-                    <option value={true}>ON</option>
-                    <option value={false}>OFF</option>
+                    <option value={1}>ON</option>
+                    <option value={0}>OFF</option>
                   </select>
                 </fieldset>
               </div>
@@ -196,8 +196,8 @@ class User extends Component {
                 <fieldset className="form-group">
                   <select className="form-control" name="status" value={this.state.new_user.status} onChange={this.handleChangeInputNewUser}>
                     <option disabled selected hidden>Pilih</option>
-                    <option value={true}>ON</option>
-                    <option value={false}>OFF</option>
+                    <option value={1}>ON</option>
+                    <option value={0}>OFF</option>
                   </select>
                 </fieldset>
                 <h5 className="mt-2">Email</h5>
