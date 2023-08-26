@@ -4,9 +4,6 @@ import routes from '../routes';
 import { postDataToAPI } from "../helper/asyncFunction";
 
 class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   logout = async () => {
     postDataToAPI('/logoutUser').then(res => {
