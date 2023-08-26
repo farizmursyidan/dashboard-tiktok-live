@@ -17,13 +17,13 @@ class Sidebar extends Component {
   render() {
     return (
       <>
-        <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light">
-          <div class="navbar-wrapper">
-            <div class="navbar-container content">
-              <div class="collapse navbar-collapse show" id="navbar-mobile">
-                <ul class="nav navbar-nav mr-auto float-left"></ul>
-                <ul class="nav navbar-nav float-right">
-                  <li class="dropdown dropdown-notification nav-item" onClick={this.logout}><a class="nav-link nav-link-label" data-toggle="dropdown"><i class="ficon ft-log-out"></i></a></li>
+        <nav className="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light">
+          <div className="navbar-wrapper">
+            <div className="navbar-container content">
+              <div className="collapse navbar-collapse show" id="navbar-mobile">
+                <ul className="nav navbar-nav mr-auto float-left"></ul>
+                <ul className="nav navbar-nav float-right">
+                  <li className="dropdown dropdown-notification nav-item" onClick={this.logout}><a className="nav-link nav-link-label" data-toggle="dropdown"><i className="ficon ft-log-out"></i></a></li>
                 </ul>
               </div>
             </div>

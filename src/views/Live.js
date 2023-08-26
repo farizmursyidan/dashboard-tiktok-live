@@ -11,7 +11,6 @@ class Live extends Component {
       input_live: {},
       live_comment: [],
       live_join: null,
-      live_like: null,
       connection_status: null,
     };
   }
@@ -64,13 +63,46 @@ class Live extends Component {
               type: 'gift',
               content: arg.message.giftName
             })
-            console.log('test', array)
             this.setState({ live_comment: array })
           }
         });
         socket.on("like", (arg) => {
           if (arg.room === `room_${this.state.input_live.username}`) {
-            this.setState({ live_like: arg.message.nickname })
+            let array = [...this.state.live_comment]
+            let find_duplicate = array.find((e) => e.nickname === arg.message.nickname && e.type === 'like')
+            if (!find_duplicate) {
+              array.push({
+                nickname: arg.message.nickname,
+                type: 'like',
+                content: ''
+              })
+            }
+            this.setState({ live_comment: array })
+          }
+        });
+        socket.on("social", (arg) => {
+          if (arg.room === `room_${this.state.input_live.username}`) {
+            let array = [...this.state.live_comment]
+            if (arg.message.displayType.includes('follow')) {
+              let find_duplicate = array.find((e) => e.nickname === arg.message.nickname && e.type === 'follow')
+              if (!find_duplicate) {
+                array.push({
+                  nickname: arg.message.nickname,
+                  type: 'follow',
+                  content: ''
+                })
+              }
+            } else if (arg.message.displayType.includes('share')) {
+              let find_duplicate = array.find((e) => e.nickname === arg.message.nickname && e.type === 'share')
+              if (!find_duplicate) {
+                array.push({
+                  nickname: arg.message.nickname,
+                  type: 'share',
+                  content: ''
+                })
+              }
+            }
+            this.setState({ live_comment: array })
           }
         });
         socket.on("streamEnd", (arg) => {
@@ -115,11 +147,11 @@ class Live extends Component {
                         {this.state.live_comment.map(e => (
                           e.type === 'chat' ? (<div><strong>{e.nickname}</strong>{` berkomentar: ${e.content}`}</div>) :
                             e.type === 'gift' ? (<div><strong>{e.nickname}</strong>{` memberikan: ${e.content}`}</div>) :
-                              (<></>)
+                              e.type === 'like' ? (<div><strong>{e.nickname}</strong>{` menyukai live ini`}</div>) :
+                                e.type === 'follow' ? (<div><strong>{e.nickname}</strong>{` mengikuti host`}</div>) :
+                                  e.type === 'share' ? (<div><strong>{e.nickname}</strong>{` membagikan live ini`}</div>) :
+                                    (<></>)
                         ))}
-                      </div>
-                      <div>
-                        <strong>{this.state.live_join}</strong>{this.state.live_join && ` joined`}
                       </div>
                       <div>
                         <strong>{this.state.live_like}</strong>{this.state.live_like && ` liked this live`}
