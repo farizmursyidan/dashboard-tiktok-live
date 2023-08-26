@@ -166,13 +166,6 @@ class User extends Component {
                 <fieldset className="form-group">
                   <input type="datetime-local" className="form-control" name="tgl_expired" value={this.state.selected_user.tgl_expired} onChange={this.handleChangeInput} />
                 </fieldset>
-                <h5 className="mt-2">Live</h5>
-                <fieldset className="form-group">
-                  <select className="form-control" name="live" value={this.state.selected_user.live} onChange={this.handleChangeInput}>
-                    <option value={1}>ON</option>
-                    <option value={0}>OFF</option>
-                  </select>
-                </fieldset>
               </div>
             </div>
           </ModalBody>
