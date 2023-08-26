@@ -3,8 +3,6 @@ import { Button, Row, Col } from "reactstrap";
 import { postDataToAPI } from "../helper/asyncFunction";
 import { io } from 'socket.io-client';
 
-const socket = io("http://localhost:8081");
-
 class Live extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +10,9 @@ class Live extends Component {
     this.state = {
       input_live: {},
       live_comment: [],
-      live_join: null
+      live_join: null,
+      live_like: null,
+      connection_status: null,
     };
   }
 
@@ -32,8 +32,11 @@ class Live extends Component {
   };
 
   connectLive = () => {
+    this.setState({ connection_status: 'Connecting...' })
     postDataToAPI("/connectLiveReact", { username: this.state.input_live.username }).then((res) => {
       if (res.data !== undefined) {
+        const socket = io("http://localhost:8081");
+        this.setState({ connection_status: res.data.message })
         socket.on("chat", (arg) => {
           if (arg.room === `room_${this.state.input_live.username}`) {
             let array = [...this.state.live_comment]
@@ -65,6 +68,18 @@ class Live extends Component {
             this.setState({ live_comment: array })
           }
         });
+        socket.on("like", (arg) => {
+          if (arg.room === `room_${this.state.input_live.username}`) {
+            this.setState({ live_like: arg.message.nickname })
+          }
+        });
+        socket.on("streamEnd", (arg) => {
+          if (arg.room === `room_${this.state.input_live.username}`) {
+            this.setState({ connection_status: "Live telah berakhir" })
+          }
+        });
+      } else {
+        this.setState({ connection_status: 'User sedang tidak live' })
       }
     });
   }
@@ -82,7 +97,7 @@ class Live extends Component {
                   </div>
                   <div className="card-content collapse show">
                     <div className="card-body">
-                      <Row>
+                      <Row style={{ marginTop: 0, paddingTop: 0 }}>
                         <Col md="3">
                           <h5 className="mt-2">Input Username</h5>
                           <fieldset className="form-group">
@@ -94,6 +109,9 @@ class Live extends Component {
                         </Col>
                       </Row>
                       <div style={{ marginTop: 24 }}>
+                        {this.state.connection_status}
+                      </div>
+                      <div style={{ marginTop: 24 }}>
                         {this.state.live_comment.map(e => (
                           e.type === 'chat' ? (<div><strong>{e.nickname}</strong>{` berkomentar: ${e.content}`}</div>) :
                             e.type === 'gift' ? (<div><strong>{e.nickname}</strong>{` memberikan: ${e.content}`}</div>) :
@@ -102,6 +120,9 @@ class Live extends Component {
                       </div>
                       <div>
                         <strong>{this.state.live_join}</strong>{this.state.live_join && ` joined`}
+                      </div>
+                      <div>
+                        <strong>{this.state.live_like}</strong>{this.state.live_like && ` liked this live`}
                       </div>
                     </div>
                   </div>
