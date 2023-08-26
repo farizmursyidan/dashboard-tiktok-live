@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import routes from "./routes.js";
 
@@ -21,10 +21,12 @@ function App() {
   };
   return (
     <>
-      <Routes>
-        <Route exact path="/" name="Home" element={<Login />} />
-        {getRoutes(routes)}
-      </Routes>
+      <Suspense>
+        <Routes>
+          <Route exact path="/" name="Home" element={<Login />} />
+          {getRoutes(routes)}
+        </Routes>
+      </Suspense>
     </>
   )
 }
