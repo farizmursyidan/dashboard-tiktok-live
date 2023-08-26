@@ -35,8 +35,7 @@ class Sidebar extends Component {
         <div className="main-menu menu-fixed menu-light menu-accordion menu-shadow " data-scroll-to-active="true" data-img="theme-assets/images/backgrounds/02.jpg">
           <div className="navbar-header">
             <ul className="nav navbar-nav flex-row">
-              <li className="nav-item mr-auto"><a className="navbar-brand" href="index.html"><img className="brand-logo" alt="Chameleon admin logo" src="theme-assets/images/logo/logo.png" />
-                <h3 className="brand-text">Tiktok Live</h3></a></li>
+              <li className="nav-item mr-auto"><Link to="/dashboard"><a className="navbar-brand"><img className="brand-logo" alt="Chameleon admin logo" src="theme-assets/images/logo/logo.png" /><h3 className="brand-text">Tiktok Live</h3></a></Link></li>
               <li className="nav-item d-md-none"><a className="nav-link close-navbar"><i className="ft-x"></i></a></li>
             </ul>
           </div>
