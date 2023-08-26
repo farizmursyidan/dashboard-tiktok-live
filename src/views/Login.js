@@ -10,6 +10,13 @@ class Login extends Component {
     };
   }
 
+  componentDidMount() {
+    let data_login = localStorage.getItem('login_status')
+    if (data_login) {
+      window.location.replace('/dashboard')
+    }
+  }
+
   handleChangeInput = (e) => {
     const name = e.target.name;
     let value = e.target.value;
