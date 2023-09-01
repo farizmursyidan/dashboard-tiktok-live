@@ -154,7 +154,7 @@ class Live extends Component {
                         ))}
                       </div>
                       <div>
-                        <strong>{this.state.live_like}</strong>{this.state.live_like && ` liked this live`}
+                        <strong>{this.state.live_join}</strong>{this.state.live_join && ` bergabung`}
                       </div>
                     </div>
                   </div>
